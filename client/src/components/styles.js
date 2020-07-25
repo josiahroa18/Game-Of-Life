@@ -22,7 +22,7 @@ export const NavBar = styled.nav`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 1000px;
+    width: 1100px;
     h1{
         font-size: ${theme.fontSize.header3};
         font-family: ${theme.font};
@@ -34,12 +34,18 @@ export const NavBar = styled.nav`
 export const DropDown = styled.div`
     font-size: ${theme.fontSize.text};
     font-family: ${theme.font};
-    color: ${theme.colors.white};
+    color: ${props => props.selected ? theme.colors.lightGreen : theme.colors.white};
     cursor: pointer;
     user-select: none;
     .content{
         display: flex;
         align-items: center;
+        justify-content: center;
+        width: ${props => props.speed ? '160px' : 'auto'};
+    }
+    &:hover{
+        color: ${theme.colors.lightGreen};
+        transition: .5s color ease;
     }
 `;
 
@@ -49,6 +55,16 @@ export const Menu = styled.div`
     height: ${props => props.height};
     position: absolute;
     margin-top: 35px;
+    .rules{
+
+    }
+    .speed{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 `;
 
 export const Button = styled.div`
@@ -91,4 +107,16 @@ export const Divider = styled.div`
     width: 1px;
     height: 40px;
     background-color: ${theme.colors.white};
+`;
+
+export const SpeedOption = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3px 0;
+    color: ${props => props.selected ? theme.colors.green : theme.colors.lightGrey};
+    &:hover{
+        color: ${theme.colors.green};
+        transition: .5s color ease;
+    }
 `;

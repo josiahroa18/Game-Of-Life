@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Route } from 'react-router-dom';
 import Nav from './components/Nav';
+import Grid from './components/Grid';
 import './index.css';
 
 function App() {
-  const [ preset, setPreset ] = useState();
+  const [ preset, setPreset ] = useState(null);
   const [ speed, setSpeed ] = useState(1);
 
   const handleSpeed = selectedSpeed => {
@@ -19,6 +20,7 @@ function App() {
     <div>
       <Route exact path='/'>
         <Nav handleSpeed={handleSpeed} handlePreset={handlePreset} speed={speed}/>
+        <Grid preset={preset}/>
       </Route>
       <Route path='/about'>
 

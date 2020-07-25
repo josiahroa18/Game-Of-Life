@@ -14,7 +14,7 @@ export default ({ handleSpeed, handlePreset, speed }) => {
         <NavWrapper>
             <NavBar>
                 <h1>Game of Life</h1>
-                <StyledLink>About</StyledLink>
+                <StyledLink to='/about'>About</StyledLink>
                 <DropDown 
                     type='rules'
                     currentMenu={currentMenu}
@@ -36,11 +36,12 @@ export default ({ handleSpeed, handlePreset, speed }) => {
                     stateChanger={handleSpeed}
                     currentMenu={currentMenu}
                     handleMenuChange={handleMenuChange}
+                    speed={speed}
                 >
-                    Speed: {`${speed ? 'Fast' : 'Slow'}`}
+                    Speed: {`${(speed === 1 && 'Fast') || (speed === 2 && 'Average') || (speed === 3 && 'Slow')}`}
                 </DropDown>
                 <Button>Clear</Button>
-                <Button run start>Start</Button>
+                <Button run start={1}>Start</Button>
             </NavBar>
         </NavWrapper>
     )
