@@ -91,19 +91,19 @@ export default ({
                         <div className='speed'>
                             <SpeedOption 
                                 selected={speed === 1} 
-                                onClick={() => stateChanger(1)}
+                                onClick={() => stateChanger(100)}
                             >
                                 Fast
                             </SpeedOption>
                             <SpeedOption 
                                 selected={speed === 2} 
-                                onClick={() => stateChanger(2)}
+                                onClick={() => stateChanger(500)}
                             >
                                 Average
                             </SpeedOption>
                             <SpeedOption 
                                 selected={speed === 3} 
-                                onClick={() => stateChanger(3)}
+                                onClick={() => stateChanger(1000)}
                             >
                                 Slow
                             </SpeedOption>

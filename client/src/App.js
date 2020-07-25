@@ -2,11 +2,12 @@ import React, { useState, useCallback, useRef } from 'react';
 import { Route } from 'react-router-dom';
 import Nav from './components/Nav';
 import Grid from './components/Grid';
+import produce from 'immer';
 import './index.css';
 
 function App() {
   const [ preset, setPreset ] = useState(null);
-  const [ speed, setSpeed ] = useState(1);
+  const [ speed, setSpeed ] = useState(100);
   const [ running, setRunning ] = useState(false);
 
   // Create a ref for running to use in callback
@@ -32,7 +33,18 @@ function App() {
 
   // ======= Game Logic =======
   const rowCount = 40;
-  const colCount = 50;
+  const colCount = 40;
+
+  const operations = [
+    [0, 1],
+    [0, -1],
+    [1, 0],
+    [-1 ,0],
+    [1, -1],
+    [-1, 1],
+    [-1, -1],
+    [1, 1]
+  ]
 
   const createEmptyGrid = () => {
       const rows = []
@@ -48,10 +60,18 @@ function App() {
 
   const [ grid, setGrid ] = useState(() => createEmptyGrid())
 
+  const handleClear = () => {
+    setRunning(false);
+    runningRef.current = false;
+    setGrid(() => createEmptyGrid());
+  }
+
   const handleCellClick = (i, j) => {
-      const gridCopy = [...grid]
-      gridCopy[i][j] = grid[i][j] ? 0 : 1;
-      setGrid(gridCopy);
+      setGrid(grid => {
+        return produce(grid, newGrid => {
+          newGrid[i][j] = grid[i][j] ? 0 : 1;
+        })
+      })
   }
 
   const runSimulation = useCallback(() => {
@@ -59,32 +79,39 @@ function App() {
           return
       }
 
-      const gridCopy = [...grid]
-      for (let i=0; i<rowCount; i++){
-        for (let j=0; j<colCount; j++){
-          let neighborCount = 0;
-          
-        }
-      }
-
-      setTimeout(runSimulation, () => {
-        switch(speed){
-          case 1:
-            return 300
-          case 2:
-            return 600
-          case 3:
-            return 1000
-          default:
-            return 300
-        }
+      setGrid(grid => {
+        return produce(grid, newGrid => {
+          for (let i=0; i<rowCount; i++){
+            for (let j=0; j<colCount; j++){
+              // Calculate the amount of neighbors each cell has
+              let neighborCount = 0;
+              operations.forEach(([x, y]) => {
+                const tempI = i + x
+                const tempJ = j + y
+                if (tempI >= 0 && tempI < rowCount && tempJ >= 0 && tempJ < colCount){
+                  neighborCount += grid[tempI][tempJ]
+                }
+              });
+    
+              // Use the amount of neighbors the current cell has to check which rule to apply
+              if (neighborCount < 2 || neighborCount > 3){
+                newGrid[i][j] = 0;
+              } else if (grid[i][j] === 0 && neighborCount === 3){
+                newGrid[i][j] = 1;
+              }          
+            }
+          }
+        })
       })
-  }, [ speed ])
+      
+      setTimeout(runSimulation, speed)
+  }, [ speed, operations ])
 
   return (
     <div>
       <Route exact path='/'>
         <Nav 
+          handleClear={handleClear}
           handleSpeed={handleSpeed} 
           handlePreset={handlePreset} 
           speed={speed} 

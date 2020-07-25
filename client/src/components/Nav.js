@@ -3,7 +3,7 @@ import { NavWrapper, NavBar, Button, StyledLink, Divider } from './styles';
 import DropDown from './Dropdown';
 
 
-export default ({ handleSpeed, handlePreset, speed, running, toggleRunning }) => {
+export default ({ handleSpeed, handlePreset, speed, running, toggleRunning, handleClear }) => {
     const [ currentMenu, setCurrentMenu ] = useState(null);
 
     const handleMenuChange = selectedMenu => {
@@ -38,9 +38,9 @@ export default ({ handleSpeed, handlePreset, speed, running, toggleRunning }) =>
                     handleMenuChange={handleMenuChange}
                     speed={speed}
                 >
-                    Speed: {`${(speed === 1 && 'Fast') || (speed === 2 && 'Average') || (speed === 3 && 'Slow')}`}
+                    Speed: {`${(speed === 100 && 'Fast') || (speed === 500 && 'Average') || (speed === 1000 && 'Slow')}`}
                 </DropDown>
-                <Button>Clear</Button>
+                <Button onClick={() => handleClear()}>Clear</Button>
                 <Button 
                     run 
                     start={running ? 1 : 0}
