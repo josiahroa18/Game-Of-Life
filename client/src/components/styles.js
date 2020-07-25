@@ -56,7 +56,10 @@ export const Menu = styled.div`
     position: absolute;
     margin-top: 35px;
     .rules{
-
+        color: ${theme.colors.black};
+        p{
+            margin: 15px 10px;
+        }
     }
     .speed{
         width: 100%;
@@ -119,4 +122,8 @@ export const SpeedOption = styled.div`
         color: ${theme.colors.green};
         transition: .5s color ease;
     }
+`;
+
+export const Highlight = styled.span`
+    color: ${theme.colors.lightGreen};
 `;

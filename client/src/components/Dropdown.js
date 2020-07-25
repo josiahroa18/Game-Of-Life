@@ -1,5 +1,9 @@
 import React from 'react';
-import { DropDown, DownArrow, Menu, SpeedOption } from './styles';
+import { DropDown, 
+        DownArrow, 
+        Menu, 
+        SpeedOption, 
+        Highlight } from './styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 export default ({ 
@@ -54,16 +58,27 @@ export default ({
             </div>
             {type === 'rules' && currentMenu === 'rules' && (
                 <ClickAwayListener onClickAway={handleClickAway}>
-                    <Menu width='500px' height='300px'>
+                    <Menu width='500px' height='260px'>
                         <div className='rules'>
-
+                            <p><Highlight>1. </Highlight> 
+                                Any live cell with fewer than two live neighbours dies, as if by underpopulation.
+                            </p>
+                            <p><Highlight>2. </Highlight> 
+                                Any live cell with two or three live neighbours lives on to the next generation.
+                            </p>
+                            <p><Highlight>3. </Highlight> 
+                                Any live cell with more than three live neighbours dies, as if by overpopulation.
+                            </p>
+                            <p><Highlight>4. </Highlight> 
+                                Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.
+                            </p>
                         </div>
                     </Menu>
                 </ClickAwayListener>
             )}
             {type === 'presets' && currentMenu === 'presets' && (
                 <ClickAwayListener onClickAway={handleClickAway}>
-                    <Menu width='300px' height='300px'>
+                    <Menu width='400px' height='300px'>
                         <div className='presets'>
 
                         </div>
