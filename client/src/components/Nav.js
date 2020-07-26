@@ -3,7 +3,10 @@ import { NavWrapper, NavBar, Button, StyledLink, Divider } from './styles';
 import DropDown from './Dropdown';
 import { useRenderCount } from '../utils/useRenderCount';
 
-
+/**
+ * We are using React.memo so that this component 
+ * only re-renders when props change
+ */
 export default React.memo(({ 
         handleSpeed, 
         speed, 
@@ -13,13 +16,13 @@ export default React.memo(({
         generatePreset 
     }) => {
 
+    useRenderCount();
+
     const [ currentMenu, setCurrentMenu ] = useState(null);
 
     const handleMenuChange = selectedMenu => {
         setCurrentMenu(selectedMenu);
     }
-
-    useRenderCount();
     
     return (
         <NavWrapper>

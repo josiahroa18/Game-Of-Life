@@ -24,7 +24,6 @@ function App() {
 
   const [ speed, setSpeed ] = useState(100);
   const [ running, setRunning ] = useState(false);
-  const [ liveCount, setLiveCount ] = useState(0);
   const [ generationCount, setGenerationCount ] = useState(0);
   const [ grid, setGrid ] = useState(() => createEmptyGrid(rowCount, colCount));
 
@@ -32,29 +31,34 @@ function App() {
   const runningRef = useRef(running);
   runningRef.current = running;
 
-  // Handles the user interaction for changing speed
-  const handleSpeed = selectedSpeed => {
+  /**
+   * handleSpeed - handles the user selection for speed
+   * Wrapped in a useCallback to prevent unecessary re-renders in the navbar
+   */
+  const handleSpeed = useCallback(selectedSpeed => {
     setSpeed(selectedSpeed)
-  }
+  }, [setSpeed])
     
   /**
    * handleClear - Stops the game from running and resets the grid.
+   * Wrapped in a useCallback to prevent unecessary re-renders in the navbar
    */
-  const handleClear = () => {
+  const handleClear = useCallback(() => {
     setRunning(false);
     runningRef.current = false;
     setGrid(() => createEmptyGrid(rowCount, colCount));
-    setLiveCount(0);
     setGenerationCount(0);
-  }
+  }, [setRunning, setGrid, setGenerationCount])
 
-  // Allows the user to toggle running on and off
-  const toggleRunning = () => {
-    setRunning(!running);
+  /**
+   * toggleRunning - Stops and start the simulation
+   * Wrapped in a useCallback to prevent unecessary re-renders in the navbar
+   */
+  const toggleRunning = useCallback(() => {
+    setRunning(running => !running);
     runningRef.current = true;
     runSimulation();
-  }
-
+  }, [setRunning])
 
   // ============== Game Logic ==============
   const operations = [
@@ -83,10 +87,13 @@ function App() {
           newGrid[i][j] = grid[i][j] ? 0 : 1;
         })
       })
-      setLiveCount(liveCount + 1);
   }
 
-  const generatePreset = selectedPreset => {
+  /**
+   * generatePreset - Populates the grid with a selected preset
+   * Wrapped in a useCallback to prevent unecessary re-renders in the navbar
+   */
+  const generatePreset = useCallback(selectedPreset => {
     switch(selectedPreset){
       case 'RANDOM':
         setGrid(() => {
@@ -105,7 +112,7 @@ function App() {
         setGrid(() => createEmptyGrid(rowCount, colCount));
     }
     setGenerationCount(0);
-  }
+  }, [setGrid, setGenerationCount])
 
   /**
    * runSimulation
