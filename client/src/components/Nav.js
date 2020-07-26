@@ -3,7 +3,15 @@ import { NavWrapper, NavBar, Button, StyledLink, Divider } from './styles';
 import DropDown from './Dropdown';
 
 
-export default ({ handleSpeed, handlePreset, speed, running, toggleRunning, handleClear }) => {
+export default ({ 
+        handleSpeed, 
+        speed, 
+        running, 
+        toggleRunning, 
+        handleClear, 
+        generatePreset 
+    }) => {
+        
     const [ currentMenu, setCurrentMenu ] = useState(null);
 
     const handleMenuChange = selectedMenu => {
@@ -25,7 +33,7 @@ export default ({ handleSpeed, handlePreset, speed, running, toggleRunning, hand
                 <Divider/>
                 <DropDown 
                     type='presets' 
-                    stateChanger={handlePreset}
+                    stateChanger={generatePreset}
                     currentMenu={currentMenu}
                     handleMenuChange={handleMenuChange}
                 >

@@ -64,6 +64,13 @@ export const Menu = styled.div`
             margin: 15px 10px;
         }
     }
+    .presets{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
     .speed{
         width: 100%;
         height: 100%;
@@ -124,6 +131,23 @@ export const SpeedOption = styled.div`
     &:hover{
         color: ${theme.colors.green};
         transition: .5s color ease;
+    }
+`;
+
+export const PresetOption = styled.div`
+    display: flex;
+    align-items: center;
+    border-top: 1px solid ${theme.colors.lightGrey};
+    border-bottom: 1px solid ${theme.colors.lightGrey};
+    color: ${theme.colors.lightGrey};
+    img{
+        width: 150px;
+        height: 150px;
+        margin: 10px;
+        margin-left: 30px;
+    }
+    &:hover{
+        color: ${theme.colors.lightGreen};
     }
 `;
 

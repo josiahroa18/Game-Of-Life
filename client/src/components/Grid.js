@@ -1,7 +1,7 @@
 import React from 'react';
 import { GridWrapper, Grid, Cell } from './styles';
 
-export default ({ preset, grid, colCount, handleCellClick }) => {
+export default ({ grid, colCount, handleCellClick }) => {
     return (
         <GridWrapper>
             <Grid colCount={colCount}>
