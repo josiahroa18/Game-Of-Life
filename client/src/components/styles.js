@@ -23,6 +23,7 @@ export const NavBar = styled.nav`
     align-items: center;
     justify-content: space-between;
     width: 1100px;
+    z-index: 10;
     h1{
         font-size: ${theme.fontSize.header3};
         font-family: ${theme.font};
@@ -55,11 +56,20 @@ export const Menu = styled.div`
     height: ${props => props.height};
     position: absolute;
     margin-top: 35px;
+    z-index: 999;
+    background-color: ${theme.colors.white};
     .rules{
         color: ${theme.colors.black};
         p{
             margin: 15px 10px;
         }
+    }
+    .presets{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
     .speed{
         width: 100%;
@@ -72,7 +82,7 @@ export const Menu = styled.div`
 
 export const Button = styled.div`
     background-color: ${props => props.run ? 
-        (props.start ? theme.colors.green : theme.colors.red) 
+        (props.start ? theme.colors.red : theme.colors.green) 
         : theme.colors.grey};
     font-family: ${theme.font};
     font-size: ${theme.fontSize.text};
@@ -87,7 +97,7 @@ export const Button = styled.div`
     user-select: none;
     &:hover{
         background-color: ${props => props.run ? 
-            (props.start ? theme.colors.lightGreen : theme.colors.lightRed) 
+            (props.start ? theme.colors.lightRed : theme.colors.lightGreen) 
             : theme.colors.lightGrey};
         transition: .5s background-color ease;
     }
@@ -124,6 +134,62 @@ export const SpeedOption = styled.div`
     }
 `;
 
+export const PresetOption = styled.div`
+    display: flex;
+    align-items: center;
+    border-top: 1px solid ${theme.colors.lightGrey};
+    border-bottom: 1px solid ${theme.colors.lightGrey};
+    color: ${theme.colors.lightGrey};
+    img{
+        width: 150px;
+        height: 150px;
+        margin: 10px;
+        margin-left: 30px;
+    }
+    &:hover{
+        color: ${theme.colors.lightGreen};
+    }
+`;
+
 export const Highlight = styled.span`
     color: ${theme.colors.lightGreen};
+`;
+
+// =========== Grid Styles ===========
+export const StatsWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+`;
+
+export const Stats = styled.div`
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p{
+        font-family: ${theme.font};
+        font-size: ${theme.fontSize.text};
+    }
+`;
+
+// =========== Grid Styles ===========
+export const GridWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+`;
+
+export const Grid = styled.div`
+    display: grid;
+    grid-template-columns: repeat(${props => props.colCount}, 20px);
+`;
+
+export const Cell = styled.div`
+    width: 20px;
+    height: 20px;
+    background-color: ${props => props.live ? theme.colors.black : undefined};
+    border: 1px solid ${theme.colors.black};
+    cursor: pointer;
 `;

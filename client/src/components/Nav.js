@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import { NavWrapper, NavBar, Button, StyledLink, Divider } from './styles';
 import DropDown from './Dropdown';
+import { useRenderCount } from '../utils/useRenderCount';
 
+/**
+ * We are using React.memo so that this component 
+ * only re-renders when props change
+ */
+export default React.memo(({ 
+        handleSpeed, 
+        speed, 
+        running, 
+        toggleRunning, 
+        handleClear, 
+        generatePreset 
+    }) => {
 
-export default ({ handleSpeed, handlePreset, speed }) => {
+    useRenderCount();
+
     const [ currentMenu, setCurrentMenu ] = useState(null);
 
     const handleMenuChange = selectedMenu => {
@@ -25,7 +39,7 @@ export default ({ handleSpeed, handlePreset, speed }) => {
                 <Divider/>
                 <DropDown 
                     type='presets' 
-                    stateChanger={handlePreset}
+                    stateChanger={generatePreset}
                     currentMenu={currentMenu}
                     handleMenuChange={handleMenuChange}
                 >
@@ -38,11 +52,17 @@ export default ({ handleSpeed, handlePreset, speed }) => {
                     handleMenuChange={handleMenuChange}
                     speed={speed}
                 >
-                    Speed: {`${(speed === 1 && 'Fast') || (speed === 2 && 'Average') || (speed === 3 && 'Slow')}`}
+                    Speed: {`${(speed === 100 && 'Fast') || (speed === 500 && 'Average') || (speed === 1000 && 'Slow')}`}
                 </DropDown>
-                <Button>Clear</Button>
-                <Button run start={1}>Start</Button>
+                <Button onClick={() => handleClear()}>Clear</Button>
+                <Button 
+                    run 
+                    start={running ? 1 : 0}
+                    onClick={() => toggleRunning()}
+                >
+                    {running ? 'Stop' : 'Start'}
+                </Button>
             </NavBar>
         </NavWrapper>
     )
-}
+})

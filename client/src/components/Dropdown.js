@@ -2,9 +2,12 @@ import React from 'react';
 import { DropDown, 
         DownArrow, 
         Menu, 
-        SpeedOption, 
+        SpeedOption,
+        PresetOption, 
         Highlight } from './styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+
+import Random from '../assets/Random.png'
 
 export default ({ 
         type, 
@@ -58,7 +61,7 @@ export default ({
             </div>
             {type === 'rules' && currentMenu === 'rules' && (
                 <ClickAwayListener onClickAway={handleClickAway}>
-                    <Menu width='500px' height='260px'>
+                    <Menu width='500px' height='260px' style={{ cursor: 'default' }}>
                         <div className='rules'>
                             <p><Highlight>1. </Highlight> 
                                 Any live cell with fewer than two live neighbours dies, as if by underpopulation.
@@ -80,7 +83,10 @@ export default ({
                 <ClickAwayListener onClickAway={handleClickAway}>
                     <Menu width='400px' height='300px'>
                         <div className='presets'>
-
+                            <PresetOption onClick={() => stateChanger('RANDOM')}>
+                                <img src={Random} alt='Random'/>
+                                <p>Random generation</p>
+                            </PresetOption>
                         </div>
                     </Menu>
                 </ClickAwayListener>
@@ -90,20 +96,20 @@ export default ({
                     <Menu width='150px' height='100px'>
                         <div className='speed'>
                             <SpeedOption 
-                                selected={speed === 1} 
-                                onClick={() => stateChanger(1)}
+                                selected={speed === 100} 
+                                onClick={() => stateChanger(100)}
                             >
                                 Fast
                             </SpeedOption>
                             <SpeedOption 
-                                selected={speed === 2} 
-                                onClick={() => stateChanger(2)}
+                                selected={speed === 500} 
+                                onClick={() => stateChanger(500)}
                             >
                                 Average
                             </SpeedOption>
                             <SpeedOption 
-                                selected={speed === 3} 
-                                onClick={() => stateChanger(3)}
+                                selected={speed === 1000} 
+                                onClick={() => stateChanger(1000)}
                             >
                                 Slow
                             </SpeedOption>
