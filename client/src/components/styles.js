@@ -156,11 +156,29 @@ export const Highlight = styled.span`
 `;
 
 // =========== Grid Styles ===========
+export const StatsWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 10px 0;
+`;
+
+export const Stats = styled.div`
+    width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p{
+        font-family: ${theme.font};
+        font-size: ${theme.fontSize.text};
+    }
+`;
+
+// =========== Grid Styles ===========
 export const GridWrapper = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
-    margin-top: 20px;
 `;
 
 export const Grid = styled.div`

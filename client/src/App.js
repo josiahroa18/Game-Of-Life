@@ -1,6 +1,7 @@
 import React, { useState, useCallback, useRef } from 'react';
 import { Route } from 'react-router-dom';
 import Nav from './components/Nav';
+import Stats from './components/Stats';
 import Grid from './components/Grid';
 import produce from 'immer';
 import './index.css';
@@ -24,6 +25,7 @@ function App() {
   const [ speed, setSpeed ] = useState(100);
   const [ running, setRunning ] = useState(false);
   const [ liveCount, setLiveCount ] = useState(0);
+  const [ generationCount, setGenerationCount ] = useState(0);
   const [ grid, setGrid ] = useState(() => createEmptyGrid(rowCount, colCount));
 
   // Create a ref for running to use in callback
@@ -43,6 +45,7 @@ function App() {
     runningRef.current = false;
     setGrid(() => createEmptyGrid(rowCount, colCount));
     setLiveCount(0);
+    setGenerationCount(0);
   }
 
   // Allows the user to toggle running on and off
@@ -101,6 +104,7 @@ function App() {
       default:
         setGrid(() => createEmptyGrid(rowCount, colCount));
     }
+    setGenerationCount(0);
   }
 
   /**
@@ -135,18 +139,18 @@ function App() {
               // If the neighbor count is not two or 3, the cell dies
               if (neighborCount < 2 || neighborCount > 3){
                 newGrid[i][j] = 0;
-                setLiveCount(liveCount - 1);
               } 
               // If a dead cell has exactly 3 neighbors, it becomes a live cell
               else if (grid[i][j] === 0 && neighborCount === 3){
                 newGrid[i][j] = 1;
-                setLiveCount(liveCount + 1);
               }          
             }
           }
         })
       })
-      console.log(liveCount);
+      
+      setGenerationCount(count => count + 1);
+
       setTimeout(runSimulation, speed)
   }, [ speed, operations ])
 
@@ -160,6 +164,9 @@ function App() {
           running={running} 
           toggleRunning={toggleRunning}
           generatePreset={generatePreset}
+        />
+        <Stats
+          generationCount={generationCount}
         />
         <Grid 
           running={running} 

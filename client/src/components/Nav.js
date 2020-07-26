@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { NavWrapper, NavBar, Button, StyledLink, Divider } from './styles';
 import DropDown from './Dropdown';
+import { useRenderCount } from '../utils/useRenderCount';
 
 
-export default ({ 
+export default React.memo(({ 
         handleSpeed, 
         speed, 
         running, 
@@ -11,12 +12,14 @@ export default ({
         handleClear, 
         generatePreset 
     }) => {
-        
+
     const [ currentMenu, setCurrentMenu ] = useState(null);
 
     const handleMenuChange = selectedMenu => {
         setCurrentMenu(selectedMenu);
     }
+
+    useRenderCount();
     
     return (
         <NavWrapper>
@@ -59,4 +62,4 @@ export default ({
             </NavBar>
         </NavWrapper>
     )
-}
+})

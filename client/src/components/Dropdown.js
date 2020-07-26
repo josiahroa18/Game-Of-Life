@@ -84,7 +84,7 @@ export default ({
                     <Menu width='400px' height='300px'>
                         <div className='presets'>
                             <PresetOption onClick={() => stateChanger('RANDOM')}>
-                                <img src={Random}/>
+                                <img src={Random} alt='Random'/>
                                 <p>Random generation</p>
                             </PresetOption>
                         </div>
