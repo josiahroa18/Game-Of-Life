@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavWrapper, NavBar, Button, StyledLink, Divider } from './styles';
+import { NavWrapper, NavBar, Button, StyledLink, VerticalDivider } from './styles';
 import DropDown from './Dropdown';
 import { useRenderCount } from '../utils/useRenderCount';
 
@@ -36,7 +36,7 @@ export default React.memo(({
                 >
                     Rules
                 </DropDown>
-                <Divider/>
+                <VerticalDivider/>
                 <DropDown 
                     type='presets' 
                     stateChanger={generatePreset}
