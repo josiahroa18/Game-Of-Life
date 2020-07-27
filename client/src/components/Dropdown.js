@@ -4,10 +4,13 @@ import { DropDown,
         Menu, 
         SpeedOption,
         PresetOption, 
-        Highlight } from './styles';
+        Highlight,
+        HorizontalDivider } from './styles';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
-import Random from '../assets/Random.png'
+import Random from '../assets/Random.png';
+import Toad from '../assets/Toad.gif';
+import Pulsar from '../assets/Pulsar.gif';
 
 export default ({ 
         type, 
@@ -81,12 +84,24 @@ export default ({
             )}
             {type === 'presets' && currentMenu === 'presets' && (
                 <ClickAwayListener onClickAway={handleClickAway}>
-                    <Menu width='400px' height='300px'>
+                    <Menu width='400px' height='600px'>
                         <div className='presets'>
+                            <HorizontalDivider/>
                             <PresetOption onClick={() => stateChanger('RANDOM')}>
-                                <img src={Random} alt='Random'/>
+                                <img src={Random} alt='Random generation'/>
                                 <p>Random generation</p>
                             </PresetOption>
+                            <HorizontalDivider/>
+                            <PresetOption onClick={() => stateChanger('TOAD')}>
+                                <img src={Toad} alt='Toad preset'/>
+                                <p>Toad preset</p>
+                            </PresetOption>
+                            <HorizontalDivider/>
+                            <PresetOption onClick={() => stateChanger('PULSAR')}>
+                                <img src={Pulsar} alt='Pulsar preset'/>
+                                <p>Pulsar preset</p>
+                            </PresetOption>
+                            <HorizontalDivider/>
                         </div>
                     </Menu>
                 </ClickAwayListener>

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import Nav from './components/Nav';
 import Stats from './components/Stats';
@@ -18,6 +18,17 @@ const createEmptyGrid = (rowCount, colCount) => {
   return rows
 }
 
+const operations = [
+  [0, 1],
+  [0, -1],
+  [1, 0],
+  [-1 ,0],
+  [1, -1],
+  [-1, 1],
+  [-1, -1],
+  [1, 1]
+]
+
 function App() {
   const rowCount = 30;
   const colCount = 50;
@@ -31,9 +42,15 @@ function App() {
   const runningRef = useRef(running);
   runningRef.current = running;
 
+  // Create a ref for speed to use in callback
+  const speedRef = useRef(speed);
+  speedRef.current = speed;
+
+  useEffect(() => console.log(speed), [speed])
+
   /**
    * handleSpeed - handles the user selection for speed
-   * Wrapped in a useCallback to prevent unecessary re-renders in the navbar
+   * Wrapped in a useCallback to prevent unnecessary re-renders in the navbar
    */
   const handleSpeed = useCallback(selectedSpeed => {
     setSpeed(selectedSpeed)
@@ -41,7 +58,7 @@ function App() {
     
   /**
    * handleClear - Stops the game from running and resets the grid.
-   * Wrapped in a useCallback to prevent unecessary re-renders in the navbar
+   * Wrapped in a useCallback to prevent unnecessary re-renders in the navbar
    */
   const handleClear = useCallback(() => {
     setRunning(false);
@@ -52,7 +69,7 @@ function App() {
 
   /**
    * toggleRunning - Stops and start the simulation
-   * Wrapped in a useCallback to prevent unecessary re-renders in the navbar
+   * Wrapped in a useCallback to prevent unnecessary re-renders in the navbar
    */
   const toggleRunning = useCallback(() => {
     setRunning(running => !running);
@@ -61,16 +78,7 @@ function App() {
   }, [setRunning])
 
   // ============== Game Logic ==============
-  const operations = [
-    [0, 1],
-    [0, -1],
-    [1, 0],
-    [-1 ,0],
-    [1, -1],
-    [-1, 1],
-    [-1, -1],
-    [1, 1]
-  ]
+
 
   /**
    * handleCellClick
@@ -91,7 +99,7 @@ function App() {
 
   /**
    * generatePreset - Populates the grid with a selected preset
-   * Wrapped in a useCallback to prevent unecessary re-renders in the navbar
+   * Wrapped in a useCallback to prevent unnecessary re-renders in the navbar
    */
   const generatePreset = useCallback(selectedPreset => {
     switch(selectedPreset){
@@ -108,6 +116,31 @@ function App() {
           return rows
         })
         break;
+      case 'TOAD':
+        const middleY = Math.floor(rowCount / 2);
+        const middleX = Math.floor(colCount / 2);
+        setGrid(() => {
+          const rows = []
+          for(let i=0; i<rowCount; i++){
+              const cols = []
+              for(let j=0; j<colCount; j++){
+                  if((i === middleY && j === middleX) ||
+                    (j === middleX + 1 && i === middleY) || 
+                    (j === middleX - 1 && i === middleY) ||
+                    (j === middleX && i === middleY - 1) || 
+                    (j === middleX + 1 && i === middleY - 1) || 
+                    (j === middleX + 2 && i === middleY -1)){
+                      cols.push(1);
+                  }
+                  else{
+                    cols.push(0);
+                  }
+              }
+              rows.push(cols);
+          }
+          return rows
+        })
+        break;
       default:
         setGrid(() => createEmptyGrid(rowCount, colCount));
     }
@@ -117,7 +150,7 @@ function App() {
   /**
    * runSimulation
    * This function is the main driver for the behavior of the cells in the grid.
-   * Time Complexity: O(n^2)
+   * Time Complexity: O(n * m)
    * 1. Create a new grid
    * 2. Loop through each column in each row.
    * 3. For each cell, count how many live neighbors there are
@@ -128,11 +161,10 @@ function App() {
       if(!runningRef.current){
           return
       }
-
       setGrid(grid => {
         return produce(grid, newGrid => {
           for (let i=0; i<rowCount; i++){ // O(n) - n times to loop through rows
-            for (let j=0; j<colCount; j++){ // O(n) - n times to loop through columns
+            for (let j=0; j<colCount; j++){ // O(m) - m times to loop through columns
               // Calculate the amount of neighbors each cell has
               let neighborCount = 0;
               operations.forEach(([x, y]) => { // O(1) since operations do not rely on input
@@ -157,9 +189,8 @@ function App() {
       })
       
       setGenerationCount(count => count + 1);
-
-      setTimeout(runSimulation, speed)
-  }, [ speed, operations ])
+      setTimeout(runSimulation, speedRef.current)
+  }, [])
 
   return (
     <div>

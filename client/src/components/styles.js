@@ -116,10 +116,16 @@ export const StyledLink = styled(Link)`
     user-select: none;
 `;
 
-export const Divider = styled.div`
+export const VerticalDivider = styled.div`
     width: 1px;
     height: 40px;
     background-color: ${theme.colors.white};
+`;
+
+export const HorizontalDivider = styled.div`
+    width: 100%;
+    height: 1px;
+    background-color: ${theme.colors.lightGrey};
 `;
 
 export const SpeedOption = styled.div`
@@ -137,8 +143,6 @@ export const SpeedOption = styled.div`
 export const PresetOption = styled.div`
     display: flex;
     align-items: center;
-    border-top: 1px solid ${theme.colors.lightGrey};
-    border-bottom: 1px solid ${theme.colors.lightGrey};
     color: ${theme.colors.lightGrey};
     img{
         width: 150px;
