@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef, useEffect } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { Route } from 'react-router-dom';
 import Nav from './components/Nav';
 import Stats from './components/Stats';
@@ -6,17 +6,7 @@ import Grid from './components/Grid';
 import produce from 'immer';
 import './index.css';
 
-const createEmptyGrid = (rowCount, colCount) => {
-  const rows = []
-  for(let i=0; i<rowCount; i++){
-      const cols = []
-      for(let j=0; j<colCount; j++){
-          cols.push(0);
-      }
-      rows.push(cols);
-  }
-  return rows
-}
+import { createEmptyGrid, createRandomGrid, createToadGrid, createPulsarGrid } from './utils/generateGrid';
 
 const operations = [
   [0, 1],
@@ -45,8 +35,6 @@ function App() {
   // Create a ref for speed to use in callback
   const speedRef = useRef(speed);
   speedRef.current = speed;
-
-  useEffect(() => console.log(speed), [speed])
 
   /**
    * handleSpeed - handles the user selection for speed
@@ -77,9 +65,6 @@ function App() {
     runSimulation();
   }, [setRunning])
 
-  // ============== Game Logic ==============
-
-
   /**
    * handleCellClick
    * @param {*} i - row index
@@ -104,42 +89,13 @@ function App() {
   const generatePreset = useCallback(selectedPreset => {
     switch(selectedPreset){
       case 'RANDOM':
-        setGrid(() => {
-          const rows = []
-          for(let i=0; i<rowCount; i++){
-              const cols = []
-              for(let j=0; j<colCount; j++){
-                  cols.push(Math.random() > 0.2 ? 0 : 1);
-              }
-              rows.push(cols);
-          }
-          return rows
-        })
+        setGrid(() => createRandomGrid(rowCount, colCount));
         break;
       case 'TOAD':
-        const middleY = Math.floor(rowCount / 2);
-        const middleX = Math.floor(colCount / 2);
-        setGrid(() => {
-          const rows = []
-          for(let i=0; i<rowCount; i++){
-              const cols = []
-              for(let j=0; j<colCount; j++){
-                  if((i === middleY && j === middleX) ||
-                    (j === middleX + 1 && i === middleY) || 
-                    (j === middleX - 1 && i === middleY) ||
-                    (j === middleX && i === middleY - 1) || 
-                    (j === middleX + 1 && i === middleY - 1) || 
-                    (j === middleX + 2 && i === middleY -1)){
-                      cols.push(1);
-                  }
-                  else{
-                    cols.push(0);
-                  }
-              }
-              rows.push(cols);
-          }
-          return rows
-        })
+        setGrid(() => createToadGrid(rowCount, colCount));
+        break;
+      case 'PULSAR':
+        setGrid(() => createPulsarGrid(rowCount, colCount));
         break;
       default:
         setGrid(() => createEmptyGrid(rowCount, colCount));

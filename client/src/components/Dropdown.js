@@ -87,17 +87,26 @@ export default ({
                     <Menu width='400px' height='600px'>
                         <div className='presets'>
                             <HorizontalDivider/>
-                            <PresetOption onClick={() => stateChanger('RANDOM')}>
+                            <PresetOption onClick={() => {
+                                    handleClickAway();
+                                    stateChanger('RANDOM');
+                                }}>
                                 <img src={Random} alt='Random generation'/>
                                 <p>Random generation</p>
                             </PresetOption>
                             <HorizontalDivider/>
-                            <PresetOption onClick={() => stateChanger('TOAD')}>
+                            <PresetOption onClick={() => {
+                                    handleClickAway();
+                                    stateChanger('TOAD');
+                                }}>
                                 <img src={Toad} alt='Toad preset'/>
                                 <p>Toad preset</p>
                             </PresetOption>
                             <HorizontalDivider/>
-                            <PresetOption onClick={() => stateChanger('PULSAR')}>
+                            <PresetOption onClick={() => {
+                                    handleClickAway();
+                                    stateChanger('PULSAR');
+                                }}>
                                 <img src={Pulsar} alt='Pulsar preset'/>
                                 <p>Pulsar preset</p>
                             </PresetOption>
