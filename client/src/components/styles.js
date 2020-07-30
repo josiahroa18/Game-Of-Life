@@ -205,7 +205,9 @@ export const Cell = styled.div`
 
 // =========== About Styles ===========
 export const About = styled.div`
-
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 export const AboutNav = styled.div`
@@ -219,14 +221,41 @@ export const AboutNav = styled.div`
 
 export const ArticleContainer = styled.div`
     display: flex;
-    justify-content: center;
-    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
     header{
         margin: 30px 0;
         width: 800px;
         img{
             width: 100%;
 
+        }
+    }
+    .article{
+        margin-bottom: 50px;
+        h1{
+            font-family: ${theme.font};
+        }
+        p{
+            font-family: ${theme.font};
+            font-size: 20px;
+            line-height: 28px;
+        }
+        li{
+            font-family: ${theme.font};
+        }
+        .links{
+            p{
+                margin: 5px 0;
+            }
+            a{
+                color: ${theme.colors.lightGreen};
+                text-decoration: none;
+            }
+        }
+        img{
+            width: 100%;
         }
     }
 `;
