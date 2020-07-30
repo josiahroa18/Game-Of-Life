@@ -3,6 +3,8 @@ import { Route } from 'react-router-dom';
 import Nav from './components/Nav';
 import Stats from './components/Stats';
 import Grid from './components/Grid';
+import Footer from './components/Footer';
+import About from './components/About';
 import produce from 'immer';
 import './index.css';
 
@@ -20,8 +22,8 @@ const operations = [
 ]
 
 function App() {
-  const rowCount = 30;
-  const colCount = 50;
+  const rowCount = 40;
+  const colCount = 60;
 
   const [ speed, setSpeed ] = useState(100);
   const [ running, setRunning ] = useState(false);
@@ -169,9 +171,10 @@ function App() {
           colCount={colCount}
           handleCellClick={handleCellClick}
         />
+        <Footer/>
       </Route>
       <Route path='/about'>
-
+        <About/>
       </Route>
     </div>
   );
