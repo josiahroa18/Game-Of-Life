@@ -15,7 +15,6 @@ export const NavWrapper = styled.div`
     display: flex;
     justify-content: center;
     background-color: ${theme.colors.darkBlue};
-
 `;
 
 export const NavBar = styled.nav`
@@ -114,6 +113,9 @@ export const StyledLink = styled(Link)`
     font-family: ${theme.font};
     color: ${theme.colors.white};
     user-select: none;
+    &:hover{
+        color: ${theme.colors.lightGreen};
+    }
 `;
 
 export const VerticalDivider = styled.div`
@@ -198,5 +200,83 @@ export const Cell = styled.div`
     cursor: pointer;
     &:hover{
         background-color: ${theme.colors.white};
+    }
+`;
+
+// =========== About Styles ===========
+export const About = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+export const AboutNav = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: ${theme.colors.darkBlue};
+    height: 45px;
+`;
+
+export const ArticleContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 800px;
+    header{
+        margin: 30px 0;
+        width: 800px;
+        img{
+            width: 100%;
+
+        }
+    }
+    .article{
+        margin-bottom: 50px;
+        h1{
+            font-family: ${theme.font};
+        }
+        p{
+            font-family: ${theme.font};
+            font-size: 20px;
+            line-height: 28px;
+        }
+        li{
+            font-family: ${theme.font};
+        }
+        .links{
+            p{
+                margin: 5px 0;
+            }
+            a{
+                color: ${theme.colors.lightGreen};
+                text-decoration: none;
+            }
+        }
+        img{
+            width: 100%;
+        }
+    }
+`;
+
+// =========== About Styles ===========
+export const Footer = styled.div`
+    width: 100%;
+    background-color: ${theme.colors.darkBlue};
+    height: 80px;
+    margin: 0;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p{
+        margin: 0;
+        color: ${theme.colors.white};
+        font-family: ${theme.font};
+        a{
+            color: ${theme.colors.lightGreen};
+            text-decoration: none;
+        }
     }
 `;
